@@ -65,6 +65,8 @@ func (r *rulesDirector) Direct(l *log.Logger, req *http.Request, upstream http.H
 		return upstream
 	case match(`POST`, `^/auth$`):
 		return upstream
+	case match(`GET`, `^/events$`):
+		return r.addLabelsToQueryStringFilters(l, req, upstream)
 
 	// Container related endpoints
 	case match(`POST`, `^/containers/create$`):
